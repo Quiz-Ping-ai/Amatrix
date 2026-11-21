@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>www.Amatrix.com ★</title>
+
+
+    <!-- =====================================================
+         FONTES
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+
+
+
+        <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         ESTRELAS
+    ====================================================== -->
+
+    <div class="decor-star star1">★</div>
+
+    <div class="decor-star star2">✦</div>
+
+    <div class="decor-star star3">★</div>
+
+    <div class="decor-star star4">✦</div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <div class="top-header">
+
+            <div class="logo">
+
+                www.Amatrix.com
+                <span class="logo-star">★</span>
+
+            </div>
+
+
+            
+<div class="account-area">
+
+    <button
+        class="account-button"
+        id="accountButton">
+        entrar / cadastrar
+    </button>
+
+    <div class="notification-area" id="notificationArea" hidden>
+        <button
+            type="button"
+            id="notificationButton"
+            class="notification-button"
+            aria-label="Abrir notificações">
+
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true">
+
+                <path d="M4 8 Q1 12 4 16"/>
+                <path d="M7 10 Q5 12 7 14"/>
+                <path d="M24 8 Q27 12 24 16"/>
+                <path d="M21 10 Q23 12 21 14"/>
+
+                <path d="M18.5 11a4.5 4.5 0 0 0-9 0c0 5.5-2.5 6-2.5 8h14c0-2-2.5-2.5-2.5-8"/>
+                <path d="M12 22h4"/>
+            </svg>
+
+            <span id="notificationBadge" class="notification-badge" hidden>0</span>
+        </button>
+
+        <div id="notificationPanel" class="notification-panel" hidden>
+            <div class="notification-header">
+                <h3>♡ notificações</h3>
+
+                <button type="button" id="markAllNotificationsRead">
+                    marcar todas como lidas
+                </button>
+            </div>
+
+            <div id="notificationList">
+                <p class="notification-empty">
+                    Suas notificações aparecerão aqui ★
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+         <div id="notificationPanel" class="notification-panel" hidden>
+        <div class="notification-header">
+            <h3>♡ notificações</h3>
+
+            <button
+                type="button"
+                id="markAllNotificationsRead">
+                marcar todas como lidas
+            </button>
+        </div>
+
+            <div id="notificationList">
+            <p class="notification-empty">
+                Suas notificações aparecerão aqui ★
+            </p>
+              </div>
+             </div>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <div class="nav-inner">
+
+                <button
+                    class="nav-button active"
+                    data-page="home">
+
+                    home
+
+                </button>
+
+
+                <button
+                    class="nav-button"
+                    data-page="forum">
+
+                    fórum
+
+                </button>
+
+
+                <button
+                    class="nav-button"
+                    data-page="members">
+
+                    membros
+
+                </button>
+
+
+                <button
+                    class="nav-button"
+                    data-page="profile">
+
+                    perfil
+
+                </button>
+
+                <button 
+                    class="nav-button" 
+                    data-page="subjects">
+
+                    matérias ★
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <main class="container">
+
+
+        <!-- =================================================
+             HOME
+        ================================================== -->
+
+        <section
+            id="homePage"
+            class="page active">
+
+            <div class="hero">
+
+                <h1>
+                    bem-vindo ao Amatrix! ★
+                </h1>
+
+                <p>
+                    Um cantinho para conversar,
+                    compartilhar ideias, trabalhos,
+                    histórias e conhecer pessoas da sua turma.
+                </p>
+
+
+                <span
+                    class="hero-user"
+                    id="heroUser">
+
+                    visitante ♡
+
+                </span>
+
+            </div>
+
+
+            <div class="main-grid">
+
+
+                <div>
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                ✦ sobre o fórum
+                            </h2>
+
+                        </div>
+
+
+                        <div class="panel-body">
+
+                            <p
+                                style="
+                                font-weight:700;
+                                line-height:1.7;
+                                ">
+
+                                O Amatrix é um fórum escolar
+                                inspirado nos antigos sites
+                                pessoais e chatrooms dos anos 2000.
+
+                                <br><br>
+
+                                Entre na sua conta para acessar
+                                exclusivamente o fórum do seu
+                                ano escolar.
+
+                            </p>
+
+                            <br>
+
+                            <button
+                                class="pink-button"
+                                onclick="openAccountModal()">
+
+                                entrar no Amatrix ★
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                ★ como funciona?
+                            </h2>
+
+                        </div>
+
+
+                        <div class="panel-body">
+
+                            <div class="categories">
+
+                                <div class="category">
+
+                                    <strong>
+                                        01 ★
+                                    </strong>
+
+                                    <small>
+                                        Crie sua conta
+                                    </small>
+
+                                </div>
+
+
+                                <div class="category">
+
+                                    <strong>
+                                        02 ★
+                                    </strong>
+
+                                    <small>
+                                        Escolha seu ano
+                                    </small>
+
+                                </div>
+
+
+                                <div class="category">
+
+                                    <strong>
+                                        03 ★
+                                    </strong>
+
+                                    <small>
+                                        Converse com sua turma
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+                <aside>
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                mensagens recentes!
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            class="message-list"
+                            id="homeMessages">
+
+                            <div class="empty">
+                                entre para ver mensagens
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                ✦ eventos
+                            </h2>
+
+                        </div>
+
+
+                        <div class="event-list">
+
+                            <div class="event">
+
+                                <strong>
+                                    semana de provas
+                                </strong>
+
+                                <br>
+
+                                <small>
+                                    Confira os tópicos da turma.
+                                </small>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <strong>
+                                    fórum aberto
+                                </strong>
+
+                                <br>
+
+                                <small>
+                                    Compartilhe suas ideias!
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FÓRUM
+        ================================================== -->
+
+        <section
+            id="forumPage"
+            class="page">
+
+            <div class="hero">
+
+                <h1>
+                    fórum ★
+                </h1>
+
+                <p>
+                    Seu espaço de conversa escolar.
+                </p>
+
+                <span
+                    class="hero-user"
+                    id="forumYear">
+
+                    entre para acessar
+
+                </span>
+
+            </div>
+
+
+            <div class="main-grid">
+
+
+                <div>
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                categorias
+                            </h2>
+
+                            <span>
+                                AMATRIX
+                            </span>
+
+                        </div>
+
+
+                        <div class="panel-body">
+
+                            <div
+                                class="categories"
+                                id="yearCategories">
+
+                            </div>
+
+
+                            <div class="toolbar">
+
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    class="search"
+                                    placeholder="🔎 pesquisar tópicos...">
+
+
+                                <button
+                                    class="pink-button"
+                                    id="newTopicButton">
+
+                                    + novo tópico
+
+                                </button>
+
+                            </div>
+
+
+                            <div
+                                class="topic-list"
+                                id="topicsList">
+
+                                <div class="empty">
+
+                                    Entre na sua conta
+                                    para acessar o fórum.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+
+
+                <aside>
+
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                recent messages!
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            class="message-list"
+                            id="recentMessages">
+
+                            <div class="empty">
+
+                                nenhuma mensagem
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                online
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            class="online-list"
+                            id="onlineUsers">
+
+                            <div class="empty">
+
+                                nenhum usuário
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="panel">
+
+                        <div class="panel-title">
+
+                            <h2>
+                                eventos ★
+                            </h2>
+
+                        </div>
+
+
+                        <div class="event-list">
+
+                            <div class="event">
+
+                                <strong>
+                                    Amatrix
+                                </strong>
+
+                                <br>
+
+                                <small>
+                                    Converse com respeito.
+                                </small>
+
+                            </div>
+
+
+                            <div class="event">
+
+                                <strong>
+                                    novidade
+                                </strong>
+
+                                <br>
+
+                                <small>
+                                    Personalize seu perfil.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MEMBROS
+        ================================================== -->
+
+        <section
+            id="membersPage"
+            class="page">
+
+            <div class="hero">
+
+                <h1>
+                    membros ★
+                </h1>
+
+                <p>
+                    Pessoas do seu fórum escolar.
+                </p>
+
+            </div>
+
+
+            <section class="panel">
+
+                <div class="panel-title">
+
+                    <h2>
+                        membros do seu ano
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="members-grid"
+                    id="membersGrid">
+
+                    <div class="empty">
+
+                        Entre para visualizar
+                        os membros.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PERFIL
+        ================================================== -->
+
+        <section
+            id="profilePage"
+            class="page">
+
+            <section class="panel">
+
+                <div class="panel-title">
+
+                    <h2>
+                        ★ meu perfil
+                    </h2>
+
+                    <span>
+                        AMATRIX ID
+                    </span>
+
+                </div>
+
+
+                <div class="profile-content">
+
+                    <div
+                        class="profile-avatar"
+                        id="profileAvatar">
+
+                        ♡
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <h2 id="profileName">
+                            Visitante
+                        </h2>
+
+
+                        <p id="profileDescription">
+
+                            Entre ou cadastre-se
+                            para personalizar seu perfil.
+
+                        </p>
+
+
+                        <button
+                            class="pink-button"
+                            id="profileLoginButton">
+
+                            entrar / cadastrar
+
+                        </button>
+
+
+                        <button
+                            class="white-button"
+                            id="settingsButton"
+                            style="display:none;">
+
+                            ⚙ configurações
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIGURAÇÕES -->
+
+                <div
+                    id="profileSettings"
+                    class="customization"
+                    style="display:none;">
+
+                    <h3>
+                        ✦ configurações do perfil
+                    </h3>
+
+
+                    <p>
+                        Personalize sua conta, escolha
+                        seu ano e altere o visual do Amatrix.
+                    </p>
+
+
+                    <br>
+
+
+                    <form
+                        id="settingsForm"
+                        class="form">
+
+
+                        <label>
+
+                            apelido
+
+                            <input
+                                type="text"
+                                id="settingsNickname"
+                                required>
+
+                        </label>
+
+
+                        <label>
+
+                            ano escolar
+
+                            <select
+                                id="settingsYear"
+                                required>
+
+                                <option value="1º ano">
+                                    1º ano
+                                </option>
+
+                                <option value="2º ano">
+                                    2º ano
+                                </option>
+
+                                <option value="3º ano">
+                                    3º ano
+                                </option>
+
+                            </select>
+
+                        </label>
+
+
+                        <div class="color-grid">
+
+                            <label>
+
+                                cor principal
+
+                                <input
+                                    type="color"
+                                    id="settingsAccent">
+
+                            </label>
+
+                            <label>
+                                início do gradiente
+                                <input
+                                    type="color"
+                                    id="settingsGradientStart"
+                                    value="#f32c91">
+                            </label>
+
+                            <label>
+                                contraste do gradiente
+                                <input
+                                    type="color"
+                                    id="settingsGradientEnd"
+                                    value="#8b5cf6">
+                            </label>
+
+
+                            <label>
+
+                                cor do fundo
+
+                                <input
+                                    type="color"
+                                    id="settingsBackground">
+
+                            </label>
+
+                        </div>
+
+
+                        <label>
+
+                            foto de perfil
+
+                            <input
+                                type="file"
+                                id="settingsPhoto"
+                                accept="image/*">
+
+                        </label>
+
+                        <label class="remove-photo-option">
+    <input type="checkbox" id="removeProfilePhoto">
+    Remover foto de perfil
+</label>
+
+                        <div
+                            class="modal-buttons">
+
+                            <button
+                                type="button"
+                                class="white-button"
+                                id="cancelSettings">
+
+                                cancelar
+
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                class="pink-button">
+
+                                salvar alterações ★
+
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="settingsMessage">
+                        </div>
+
+                    </form>
+
+                    
+                    <div class="delete-account-area">
+                     <h3>♡ excluir minha conta</h3>
+
+                        <p>
+                         Essa ação é permanente. Sua conta, seus tópicos,
+                        suas respostas e suas curtidas serão apagados.
+                        </p>
+
+                    <button
+                         type="button"
+                         id="deleteAccountButton"
+                         class="danger-button">
+                         excluir minha conta
+                    </button>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+             PÁGINA DE MATÉRIAS
+        ================================================== -->
+
+    
+<section id="subjectsPage" class="page">
+
+    <div class="panel">
+        <div class="panel-title">
+            <h2>★ MATÉRIAS</h2>
+        </div>
+
+        <div class="panel-body">
+            <p>
+                Escolha uma matéria para criar,
+                organizar e editar seus tópicos de estudo.
+            </p>
+            <div id="subjectsGrid" class="subjects-grid"></div>
+        </div>
+    </div>
+
+    
+<div id="selectedSubjectPanel"
+     class="subjects-workspace"
+     style="display:none;">
+
+    <!-- COLUNA ESQUERDA: TÓPICOS DA MATÉRIA -->
+    <div class="panel subject-list-panel">
+
+        <div class="panel-title">
+            <h2 id="selectedSubjectTitle">★ TÓPICOS DA MATÉRIA</h2>
+        </div>
+
+        <div class="panel-body">
+            <h3>Tópicos publicados</h3>
+
+            <div id="subjectTopicsList">
+                <div class="empty">
+                    Escolha uma matéria para começar ★
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- COLUNA DIREITA: CRIAR TÓPICO -->
+    <div class="panel subject-create-panel">
+
+        <div class="panel-title">
+            <h2>recent message ★</h2>
+        </div>
+
+        <div class="panel-body">
+
+            <form id="subjectTopicForm" class="form">
+
+                <input type="hidden" id="subjectTopicId">
+
+                <label for="subjectTopicTitle">
+                    Título do tópico
+                </label>
+
+                <input
+                    type="text"
+                    id="subjectTopicTitle"
+                    placeholder="Ex.: Equações do segundo grau"
+                    maxlength="120"
+                    required
+                >
+
+                <label for="subjectTopicContent">
+                    Conteúdo
+                </label>
+
+                <textarea
+                    id="subjectTopicContent"
+                    placeholder="Escreva suas anotações, explicações ou resumo..."
+                    rows="6"
+                    required
+                ></textarea>
+
+                <div class="subject-form-actions">
+
+                    <button
+                        type="submit"
+                        class="pink-button"
+                        id="saveSubjectTopicButton">
+                        publicar tópico ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="white-button"
+                        id="cancelSubjectEdit"
+                        style="display:none;">
+                        cancelar edição
+                    </button>
+
+                </div>
+
+                <div id="subjectTopicMessage"></div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+</section>
+
+    <!-- FIM DA PÁGINA DE MATÉRIAS -->
+
+
+
+    <!-- =====================================================
+         MODAL DE LOGIN / CADASTRO
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="accountModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2 id="accountModalTitle">
+                    entrar no Amatrix ★
+                </h2>
+
+                <button
+                    class="close"
+                    onclick="closeAccountModal()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+
+                <div class="login-switch">
+
+                    <button
+                        id="loginTab"
+                        class="active">
+
+                        entrar
+
+                    </button>
+
+
+                    <button
+                        id="registerTab">
+
+                        cadastrar
+
+                    </button>
+
+                </div>
+
+
+                <!-- LOGIN -->
+
+                <form
+                    id="loginForm"
+                    class="form">
+
+
+                    <label>
+
+                        e-mail
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            required>
+
+                    </label>
+
+
+                    <label>
+
+                        senha
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            required>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="pink-button">
+
+                        entrar ★
+
+                    </button>
+
+
+                    <div
+                        id="loginMessage">
+                    </div>
+
+                </form>
+
+
+
+                <!-- CADASTRO -->
+
+                <form
+                    id="registerForm"
+                    class="form"
+                    style="display:none;">
+
+
+                    <label>
+
+                        e-mail
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            required>
+
+                    </label>
+
+
+                    <label>
+
+                        senha
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            minlength="6"
+                            required>
+
+                    </label>
+
+
+                    <label>
+
+                        apelido
+
+                        <input
+                            type="text"
+                            id="registerNickname"
+                            maxlength="25"
+                            required>
+
+                    </label>
+
+
+                    <label>
+
+                        ano escolar
+
+                        <select
+                            id="registerYear"
+                            required>
+
+                            <option value="">
+                                selecione
+                            </option>
+
+                            <option value="1º ano">
+                                1º ano
+                            </option>
+
+                            <option value="2º ano">
+                                2º ano
+                            </option>
+
+                            <option value="3º ano">
+                                3º ano
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="pink-button">
+
+                        criar minha conta ★
+
+                    </button>
+
+
+                    <div
+                        id="registerMessage">
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MODAL NOVO TÓPICO
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="topicModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2>
+                    criar novo tópico ★
+                </h2>
+
+                <button
+                    class="close"
+                    id="closeTopicModal">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <form
+                    id="topicForm"
+                    class="form">
+
+                    
+    <input type="hidden" id="topicEditId" value="">
+
+    <label for="topicSubject">Matéria</label>
+    <select id="topicSubject" required>
+        <option value="">Selecione uma matéria</option>
+         <option value="Português">Português</option>
+        <option value="Matemática">Matemática</option>
+        <option value="Biologia">Biologia</option>
+        <option value="Química">Química</option>
+        <option value="Física">Física</option>
+        <option value="Filosofia">Filosofia</option>
+        <option value="Geografia">Geografia</option>
+        <option value="História">História</option>
+        <option value="Artes">Artes</option>
+         <option value="Inglês">Inglês</option>
+        <option value="Espanhol">Espanhol</option>
+        <option value="Sociologia">Sociologia</option>
+        <option value="Matéria do Curso">Matéria do Curso</option>
+    </select>
+
+
+
+                    <div
+                        class="message-box"
+                        id="topicYearNotice">
+
+                        Seu tópico será publicado
+                        no seu ano escolar.
+
+                    </div>
+
+
+                    <label>
+
+                        título
+
+                        <input
+                            type="text"
+                            id="topicTitle"
+                            maxlength="100"
+                            placeholder="sobre o que você quer conversar?"
+                            required>
+
+                    </label>
+
+
+                    <label>
+
+                        descrição
+
+                        <textarea
+                            id="topicDescription"
+                            maxlength="500"
+                            placeholder="escreva um pouco mais..."
+                            required>
+                        </textarea>
+
+                    </label>
+
+
+                    <div class="modal-buttons">
+
+                        <button
+                            type="button"
+                            class="white-button"
+                            id="cancelTopic">
+
+                            cancelar
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="pink-button">
+
+                            publicar ★
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="topicMessage"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MODAL TÓPICO / MENSAGENS
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="viewTopicModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2 id="viewTopicTitle">
+                    tópico
+                </h2>
+
+                <button
+                    class="close"
+                    id="closeViewTopic">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div
+                    id="viewTopicContent">
+                </div>
+
+
+                <hr
+                    style="
+                    margin:20px 0;
+                    border:0;
+                    border-top:2px dashed #e79abc;
+                    ">
+
+
+                <h3
+                    style="
+                    margin-bottom:12px;
+                    color:var(--pink-dark);
+                    ">
+
+                    mensagens ★
+
+                </h3>
+
+
+                <div
+                    id="topicMessages"
+                    class="message-list">
+
+                </div>
+
+
+                <br>
+
+
+                <form
+                    id="replyForm"
+                    class="form">
+
+
+                    <label>
+
+                        sua mensagem
+
+                        <textarea
+                            id="replyText"
+                            placeholder="escreva uma resposta..."
+                            required>
+                        </textarea>
+
+                    </label>
+
+
+                    <button
+                        class="pink-button"
+                        type="submit">
+
+                        enviar mensagem ★
+
+                    </button>
+
+
+                    <div id="replyMessage"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        class="toast"
+        id="toast">
+
+    </div>
+
+
+
+           <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+    <!-- JavaScript do site -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
+</body>
+
+</html>
