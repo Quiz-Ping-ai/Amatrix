@@ -2626,28 +2626,37 @@ async function toggleTopicStatus(topicId) {
    MENSAGENS E CURTIDAS DAS RESPOSTAS
 ====================================================== */
 
+
+
 let currentMessagesData = {};
 let currentMessageLikesData = {};
+let currentMessageRepliesData = {};
+let currentMessageReplyThreadsData = {};
 let messageLikesTopicId = null;
 
 function loadTopicMessages(id) {
     const messagesRef = db.ref("topicMessages/" + id);
     const likesRef = db.ref("messageLikes/" + id);
+    const repliesRef = db.ref("messageReplies/" + id);
+    const replyThreadsRef = db.ref("messageReplyThreads/" + id);
 
-    // Evita manter listeners do tópico aberto anteriormente.
     messagesRef.off("value");
     likesRef.off("value");
+    repliesRef.off("value");
+    replyThreadsRef.off("value");
 
     currentMessagesData = {};
     currentMessageLikesData = {};
+    currentMessageRepliesData = {};
+    currentMessageReplyThreadsData = {};
     messageLikesTopicId = id;
 
     messagesRef.on("value", snapshot => {
         currentMessagesData = snapshot.val() || {};
         renderTopicMessagesWithLikes(id);
     }, error => {
-        console.error("Erro ao carregar respostas:", error);
-        showToast("Não foi possível carregar as respostas.");
+        console.error("Erro ao carregar mensagens:", error);
+        showToast("Não foi possível carregar as mensagens.");
     });
 
     likesRef.on("value", snapshot => {
@@ -2657,7 +2666,91 @@ function loadTopicMessages(id) {
         console.error("Erro ao carregar curtidas:", error);
         showToast("Não foi possível carregar as curtidas.");
     });
+
+    repliesRef.on("value", snapshot => {
+        currentMessageRepliesData = snapshot.val() || {};
+        renderTopicMessagesWithLikes(id);
+    }, error => {
+        console.error("Erro ao carregar respostas dos comentários:", error);
+        showToast("Não foi possível carregar as respostas.");
+    });
+
+    replyThreadsRef.on("value", snapshot => {
+        currentMessageReplyThreadsData = snapshot.val() || {};
+        renderTopicMessagesWithLikes(id);
+    }, error => {
+        console.error("Erro ao carregar respostas encadeadas:", error);
+        showToast("Não foi possível carregar as respostas encadeadas.");
+    });
 }
+
+
+// Renderiza uma resposta e todas as respostas feitas a ela.
+function renderNestedMessageReply(topicId, rootMessageId, replyId, reply, depth = 1) {
+    const childReplies = Object.entries(currentMessageReplyThreadsData)
+        .filter(([childId, child]) => child && child.parentId === replyId)
+        .sort((a, b) => (a[1].createdAt || 0) - (b[1].createdAt || 0));
+
+    const childrenHTML = childReplies.map(([childId, child]) =>
+        renderNestedMessageReply(
+            topicId,
+            rootMessageId,
+            childId,
+            child,
+            depth + 1
+        )
+    ).join("");
+
+    const safeReplyId = escapeHTML(replyId);
+
+    return `
+        <div class="message nested-message" style="margin-left:${Math.min(depth, 8) * 12}px;">
+            <strong>${escapeHTML(reply.author || "Usuário")}:</strong>
+            <p>${escapeHTML(reply.text || "")}</p>
+            <small>${formatTime(reply.createdAt)}</small>
+
+            <div class="message-like-area">
+                <button
+                    type="button"
+                    class="white-button"
+                    onclick="toggleMessageReplyForm('${topicId}', '${safeReplyId}', '${rootMessageId}')"
+                    ${!currentUser ? "disabled" : ""}>
+                    ↩ Responder
+                </button>
+            </div>
+
+            <div
+                id="messageReplyForm-${safeReplyId}"
+                class="message-reply-form"
+                style="display:none; margin-top:10px;">
+
+                <textarea
+                    id="messageReplyText-${safeReplyId}"
+                    placeholder="Responder a ${escapeHTML(reply.author || "este usuário")}..."
+                    rows="3"></textarea>
+
+                <button
+                    type="button"
+                    class="pink-button"
+                    onclick="sendMessageReply('${topicId}', '${safeReplyId}', '${rootMessageId}')">
+                    Enviar resposta ★
+                </button>
+
+                <button
+                    type="button"
+                    class="white-button"
+                    onclick="toggleMessageReplyForm('${topicId}', '${safeReplyId}', '${rootMessageId}')">
+                    Cancelar
+                </button>
+            </div>
+
+            <div class="nested-replies">
+                ${childrenHTML}
+            </div>
+        </div>
+    `;
+}
+
 
 function renderTopicMessagesWithLikes(topicId) {
     const container = document.getElementById("topicMessages");
@@ -2686,6 +2779,7 @@ function renderTopicMessagesWithLikes(topicId) {
 
     container.innerHTML = list.map(message => {
         const likes = currentMessageLikesData[message.messageId] || {};
+
         const likeCount = Object.values(likes)
             .filter(value => value === true).length;
 
@@ -2694,16 +2788,31 @@ function renderTopicMessagesWithLikes(topicId) {
             likes[currentUser.uid] === true
         );
 
+        const replies = currentMessageRepliesData[message.messageId] || {};
+
+        const repliesHTML = Object.entries(replies)
+            .sort((a, b) => (a[1].createdAt || 0) - (b[1].createdAt || 0))
+            .map(([replyId, reply]) =>
+                renderNestedMessageReply(
+                    topicId,
+                    message.messageId,
+                    replyId,
+                    reply,
+                    1
+                )
+            ).join("");
+
         return `
             <div class="message">
+
                 <strong>${escapeHTML(message.author || "Usuário")}:</strong>
 
                 <p>${escapeHTML(message.text || "")}</p>
 
                 <small>${formatTime(message.createdAt)}</small>
 
-                
                 <div class="message-like-area">
+
                     <button
                         type="button"
                         class="message-like-button ${userLiked ? "liked" : ""}"
@@ -2714,13 +2823,18 @@ function renderTopicMessagesWithLikes(topicId) {
                         (${likeCount})
                     </button>
 
-                    
+                    <button
+                        type="button"
+                        class="white-button"
+                        onclick="toggleMessageReplyForm('${topicId}', '${message.messageId}', '${message.messageId}')"
+                        ${!currentUser ? "disabled" : ""}>
+                        ↩ Responder
+                    </button>
+
                     ${currentUser && message.authorId !== currentUser.uid ? `
                         <button
                             type="button"
                             class="white-button"
-                            data-report-type="message"
-                            data-report-target="${escapeHTML(message.messageId)}"
                             onclick="reportContent('message', '${topicId}', '${message.messageId}')">
                             ⚑ Denunciar
                         </button>
@@ -2728,10 +2842,215 @@ function renderTopicMessagesWithLikes(topicId) {
 
                 </div>
 
+                <div
+                    id="messageReplyForm-${message.messageId}"
+                    class="message-reply-form"
+                    style="display:none; margin-top:12px;">
+
+                    <textarea
+                        id="messageReplyText-${message.messageId}"
+                        placeholder="Escreva sua resposta..."
+                        rows="3"></textarea>
+
+                    <button
+                        type="button"
+                        class="pink-button"
+                        onclick="sendMessageReply('${topicId}', '${message.messageId}', '${message.messageId}')">
+                        Enviar resposta ★
+                    </button>
+
+                    <button
+                        type="button"
+                        class="white-button"
+                        onclick="toggleMessageReplyForm('${topicId}', '${message.messageId}', '${message.messageId}')">
+                        Cancelar
+                    </button>
+                </div>
+
+                <div class="nested-replies">
+                    ${repliesHTML}
+                </div>
+
             </div>
         `;
     }).join("");
 }
+
+
+// Abre ou fecha o campo de resposta.
+function toggleMessageReplyForm(topicId, parentId, rootMessageId) {
+    if (!currentUser) {
+        openAccountModal();
+        return;
+    }
+
+    const form = document.getElementById(
+        "messageReplyForm-" + parentId
+    );
+
+    if (!form) return;
+
+    form.style.display =
+        form.style.display === "none" ? "block" : "none";
+}
+
+
+// Localiza o autor da mensagem respondida.
+function findMessageReplyParent(topicId, parentId, rootMessageId) {
+    if (parentId === rootMessageId) {
+        return currentMessagesData[rootMessageId] || null;
+    }
+
+    const legacyReply =
+        currentMessageRepliesData[rootMessageId] &&
+        currentMessageRepliesData[rootMessageId][parentId];
+
+    if (legacyReply) return legacyReply;
+
+    return currentMessageReplyThreadsData[parentId] || null;
+}
+
+
+// Envia uma resposta a um comentário ou a outra resposta.
+async function sendMessageReply(topicId, parentId, rootMessageId) {
+    if (!currentUser) {
+        openAccountModal();
+        return;
+    }
+
+    if (await isCurrentUserSuspended()) {
+        showToast("Sua conta está suspensa e não pode responder.");
+        return;
+    }
+
+    if (!topicsData[topicId]) {
+        showToast("Este tópico não está disponível.");
+        return;
+    }
+
+    const input = document.getElementById(
+        "messageReplyText-" + parentId
+    );
+
+    if (!input) return;
+
+    const text = input.value.trim();
+
+    if (!text) {
+        showToast("Escreva uma resposta primeiro.");
+        return;
+    }
+
+    const parent = findMessageReplyParent(
+        topicId,
+        parentId,
+        rootMessageId
+    );
+
+    if (!parent) {
+        showToast("A mensagem à qual você quer responder não está mais disponível.");
+        return;
+    }
+
+    const button = input.parentElement.querySelector(
+        "button.pink-button"
+    );
+
+    if (button) button.disabled = true;
+
+    try {
+        const replyData = {
+            author: currentUser.nickname || "Usuário",
+            authorId: currentUser.uid,
+            text: text,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        // Respostas diretas ao comentário continuam no caminho antigo.
+        if (parentId === rootMessageId) {
+            const ref = db
+                .ref(
+                    "messageReplies/" +
+                    topicId + "/" +
+                    rootMessageId
+                )
+                .push();
+
+            await ref.set(replyData);
+
+        } else {
+            // Respostas a outras respostas ficam em uma coleção separada.
+            const ref = db
+                .ref("messageReplyThreads/" + topicId)
+                .push();
+
+            await ref.set({
+                ...replyData,
+                parentId: parentId,
+                rootMessageId: rootMessageId
+            });
+        }
+
+        input.value = "";
+        input.parentElement.style.display = "none";
+
+        showToast("Resposta enviada ★");
+
+        // Notifica o autor da mensagem específica respondida.
+        if (
+            parent.authorId &&
+            parent.authorId !== currentUser.uid
+        ) {
+            try {
+                const notificationRef = db
+                    .ref("notifications/" + parent.authorId)
+                    .push();
+
+                await notificationRef.set({
+                    type: "message_reply",
+                    fromUid: currentUser.uid,
+                    fromName: currentUser.nickname || "Usuário",
+                    text: (currentUser.nickname || "Alguém") +
+                        " respondeu à sua mensagem no tópico: " +
+                        (topicsData[topicId].title || ""),
+                    topicId: topicId,
+                    messageId: rootMessageId,
+                    parentId: parentId,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP,
+                    read: false
+                });
+
+            } catch (notificationError) {
+                console.error(
+                    "Resposta salva, mas a notificação falhou:",
+                    notificationError
+                );
+            }
+        }
+
+        try {
+            await db
+                .ref("topics/" + topicId + "/lastActivity")
+                .set(firebase.database.ServerValue.TIMESTAMP);
+        } catch (activityError) {
+            console.error(
+                "Não foi possível atualizar a atividade do tópico:",
+                activityError
+            );
+        }
+
+    } catch (error) {
+        console.error("Erro ao enviar resposta encadeada:", error);
+
+        showToast(
+            "Não foi possível enviar. Verifique sua conexão e as regras do Firebase."
+        );
+
+    } finally {
+        if (button) button.disabled = false;
+    }
+}
+
 
 
 async function toggleMessageLike(topicId, messageId) {
